@@ -1,0 +1,14 @@
+rescript = 1
+g_finger := /home/late/projects/ocaml/rescript-electron-template/node_modules/@rescript/react/lib/ocaml/install.stamp
+rule astj
+  command = /home/late/.npm/_npx/0c91dff827466f3d/node_modules/rescript/linux/bsc.exe  -warn-error +101 -bs-v 9.1.4 -bs-jsx 3  -absname -bs-ast -o $out $i
+o src/Renderer.ast : astj ../../src/Renderer.res
+rule deps
+  command = /home/late/.npm/_npx/0c91dff827466f3d/node_modules/rescript/linux/bsb_helper.exe -hash c8489fbf94980aa002d8231fab40b673 $in
+  restat = 1
+o src/Renderer.d : deps src/Renderer.ast
+rule mij
+  command = /home/late/.npm/_npx/0c91dff827466f3d/node_modules/rescript/linux/bsc.exe -I src -I /home/late/projects/ocaml/rescript-electron-template/node_modules/@rescript/react/lib/ocaml   -warn-error +101 -bs-package-name project-template -bs-package-output commonjs:lib/js/$in_d:.bs.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src/Renderer.cmj src/Renderer.cmi ../js/src/Renderer.bs.js : mij src/Renderer.ast

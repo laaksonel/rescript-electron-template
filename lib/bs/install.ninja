@@ -1,0 +1,10 @@
+rescript = 1
+rule cp
+  command = cp $i $out
+rule touch
+ command = touch $out
+o Renderer.cmi : cp ../bs/src/Renderer.cmi
+o Renderer.cmj : cp ../bs/src/Renderer.cmj
+o Renderer.cmt : cp ../bs/src/Renderer.cmt
+o Renderer.res : cp ../../src/Renderer.res
+build install.stamp : touch Renderer.cmi Renderer.cmj 
